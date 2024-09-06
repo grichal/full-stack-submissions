@@ -13,23 +13,33 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-  const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 });
-  const [mostVoted, setMostVoted] = useState()
-  
+  const [points, setPoints] = useState({
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+  });
+  const [mostVoted, setMostVoted] = useState();
+
   const handleVote = () => {
     const newPoints = { ...points };
     newPoints[selected] += 1;
     setPoints(newPoints);
-    const maxVotes = Math.max(...Object.values(newPoints))
-    const mostVotedIndex = Object.keys(newPoints).find(key => newPoints[key] === maxVotes)
-    setMostVoted(mostVotedIndex)
+    const maxVotes = Math.max(...Object.values(newPoints));
+    const mostVotedIndex = Object.keys(newPoints).find(
+      (key) => newPoints[key] === maxVotes
+    );
+    setMostVoted(mostVotedIndex);
   };
 
   return (
     <>
-    <h1>Anecdote of the day</h1>
+      <h1>Anecdote of the day</h1>
       <div>
-        
         {anecdotes[selected]} votes {points[selected]}
       </div>
       <button onClick={handleVote}>vote</button>
@@ -40,8 +50,9 @@ const App = () => {
       >
         Next anecdote
       </button>
-    <h1>Anecdote with most votes</h1>
-        <p>{anecdotes[mostVoted]}</p>
+      <h1>Anecdote with most votes</h1>
+      {!mostVoted ? "no voted anecdote yet" : anecdotes[mostVoted]} votes{" "}
+      {points[mostVoted]}
     </>
   );
 };
